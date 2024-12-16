@@ -68,30 +68,6 @@ python github-deployment-cleaner.py
 
 ---
 
-## 📝 **Environment Variables (Optional)**
-
-Instead of hardcoding sensitive information like `TOKEN`, you can use environment variables for better security.
-
-1. Export the environment variables:
-   ```bash
-   export GITHUB_TOKEN="your_token_here"
-   export GITHUB_USER="your_username_here"
-   export GITHUB_REPO="your_repo_here"
-   export GITHUB_KEEP_DEPLOYMENT_ID="your_deployment_id_here"
-   ```
-
-2. Modify the script to read from environment variables:
-   ```python
-   import os
-
-   TOKEN = os.getenv("GITHUB_TOKEN")
-   USER = os.getenv("GITHUB_USER")
-   REPO = os.getenv("GITHUB_REPO")
-   KEEP_DEPLOYMENT_ID = os.getenv("GITHUB_KEEP_DEPLOYMENT_ID")
-   ```
-
----
-
 ## 🌟 **Example Output**
 ```bash
 Keeping the latest deployment: ID <LATEST_DEPLOYMENT_ID>
@@ -104,26 +80,6 @@ Deleted deployment ID <DEPLOYMENT_ID>.
 ## ⚠️ **Important Notes**
 - **Destructive Action**: This script deletes deployments permanently. Double-check `KEEP_DEPLOYMENT_ID` to avoid unintentional deletion.
 - **GitHub API Rate Limits**: Ensure your token has sufficient API call limits for large repositories.
-
----
-
-## 👨‍💻 **Contributing**
-
-Contributions are welcome! Feel free to:
-1. Fork the repository.
-2. Create a new branch for your feature or fix:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add feature name"
-   ```
-4. Push the branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request.
 
 ---
 
