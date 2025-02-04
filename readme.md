@@ -1,6 +1,6 @@
 # GitHub Deployment Cleaner
 
-A Python script to manage and clean up deployments in a GitHub repository. It automates marking old deployments as inactive and deleting them, keeping the most recent deployment active.
+A Python-based automation tool designed to streamline the management of GitHub deployments within a repository. The script simplifies the process of cleaning up outdated deployments, ensuring that your repository remains organized while retaining the most recent deployment.
 
 ---
 
