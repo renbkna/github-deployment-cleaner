@@ -1,134 +1,149 @@
-# GitHub Deployment Cleaner
+# GitHub Deployment Cleaner (Flask + React)
 
-A Python script to manage and clean up deployments in a GitHub repository. It automates marking old deployments as inactive and deleting them, keeping the most recent deployment active.
+This project provides a **GitHub Deployment Cleaner**, which helps manage and clean up GitHub deployments efficiently.
 
----
-
-## 🎯 **Purpose**
-This script is designed for developers and DevOps engineers who manage GitHub repositories and need an automated way to clean up old deployments while keeping the repository organized.
-
----
-
-## 📋 **Features**
-- Lists all deployments in a GitHub repository.
-- Marks old deployments as inactive.
-- Deletes inactive deployments, keeping only the specified deployment ID.
+- **Frontend**: React + Tailwind CSS (Deployed on **Vercel**)
+- **Backend**: Flask + GitHub API (Deployed on **Render**)
+- **Database**: None (GitHub API used as storage)
 
 ---
 
-## 🚀 **How It Works**
-1. Fetches all deployments in the specified GitHub repository.
-2. Retains the deployment specified by `KEEP_DEPLOYMENT_ID`.
-3. Marks all other deployments as inactive.
-4. Deletes the inactive deployments.
+## 🚀 Features
+
+✔️ **List all deployments** in a GitHub repository  
+✔️ **Mark deployments as inactive**  
+✔️ **Delete outdated deployments**  
+✔️ **Fully responsive frontend** (React + Tailwind)  
+✔️ **Deployed with CI/CD** using **Render (Backend)** & **Vercel (Frontend)**
 
 ---
 
-## 🛠️ **Prerequisites**
-- Python 3.7 or higher.
-- A valid **GitHub Personal Access Token** with appropriate permissions.
-  - **Required Scopes**:
-    - `repo` (if the repository is private).
-    - `public_repo` (if the repository is public).
+## 📂 Project Structure
 
----
-
-## 📦 **Installation**
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/renbkna/github-deployment-cleaner.git
-   cd github-deployment-cleaner
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install requests
-   ```
-
-3. Replace placeholders in the script with your details:
-   - `TOKEN`: Your GitHub personal access token.
-   - `USER`: Your GitHub username or organization name.
-   - `REPO`: The name of your repository.
-   - `KEEP_DEPLOYMENT_ID`: The ID of the deployment you want to keep.
-
----
-
-## 🚀 **Usage**
-
-Run the script:
-```bash
-python github-deployment-cleaner.py
 ```
-
-- The script will:
-  - Fetch all deployments.
-  - Mark all but the specified deployment (`KEEP_DEPLOYMENT_ID`) as inactive.
-  - Delete the inactive deployments.
-
----
-
-## 📝 **Environment Variables (Optional)**
-
-Instead of hardcoding sensitive information like `TOKEN`, you can use environment variables for better security.
-
-1. Export the environment variables:
-   ```bash
-   export GITHUB_TOKEN="your_token_here"
-   export GITHUB_USER="your_username_here"
-   export GITHUB_REPO="your_repo_here"
-   export GITHUB_KEEP_DEPLOYMENT_ID="your_deployment_id_here"
-   ```
-
-2. Modify the script to read from environment variables:
-   ```python
-   import os
-
-   TOKEN = os.getenv("GITHUB_TOKEN")
-   USER = os.getenv("GITHUB_USER")
-   REPO = os.getenv("GITHUB_REPO")
-   KEEP_DEPLOYMENT_ID = os.getenv("GITHUB_KEEP_DEPLOYMENT_ID")
-   ```
-
----
-
-## 🌟 **Example Output**
-```bash
-Keeping the latest deployment: ID <LATEST_DEPLOYMENT_ID>
-Marked deployment ID <DEPLOYMENT_ID> as inactive.
-Deleted deployment ID <DEPLOYMENT_ID>.
+📦 project-root
+├── 📂 frontend/          # React (Vercel)
+│   ├── 📂 components/ui  # UI Components (Badge, Button, etc.)
+│   ├── 📄 github-deployments.tsx  # Main frontend component
+│   ├── 📄 package.json   # Dependencies & scripts
+│   ├── 📄 vite.config.ts # Vite Configuration
+│   └── ...
+│
+├── 📂 github-deployment-cleaner/  # Flask (Render)
+│   ├── 📄 app.py       # Flask API server
+│   ├── 📄 github_deployments.py  # GitHub API interactions
+│   ├── 📄 cli.py       # CLI tool for managing deployments
+│   ├── 📄 requirements.txt # Python dependencies
+│   └── ...
+│
+└── 📄 README.md
 ```
 
 ---
 
-## ⚠️ **Important Notes**
-- **Destructive Action**: This script deletes deployments permanently. Double-check `KEEP_DEPLOYMENT_ID` to avoid unintentional deletion.
-- **GitHub API Rate Limits**: Ensure your token has sufficient API call limits for large repositories.
+## 🔧 Setup Guide (Local Development)
+
+### **1️⃣ Backend (Flask on Render)**
+
+#### ✅ **Step 1: Clone the Repo & Install Dependencies**
+
+```bash
+git clone https://github.com/your-username/github-deployment-cleaner.git
+cd github-deployment-cleaner
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+#### ✅ **Step 2: Set Up Environment Variables**
+
+Create a `.env` file inside `github-deployment-cleaner/`:
+
+```ini
+GITHUB_TOKEN=your_github_personal_access_token
+GITHUB_USER=your_github_username
+GITHUB_REPO=your_github_repo_name
+FLASK_SECRET_KEY=your_secret_key
+```
+
+#### ✅ **Step 3: Run the Backend**
+
+```bash
+python app.py
+```
+
+Flask server runs at **http://127.0.0.1:5000**.
 
 ---
 
-## 👨‍💻 **Contributing**
+### **2️⃣ Frontend (React on Vercel)**
 
-Contributions are welcome! Feel free to:
-1. Fork the repository.
-2. Create a new branch for your feature or fix:
+#### ✅ **Step 1: Install Dependencies**
+
+```bash
+cd ../frontend
+npm install
+```
+
+#### ✅ **Step 2: Start Development Server**
+
+```bash
+npm run dev  # Or npx vite
+```
+
+Frontend runs at **http://localhost:5173**.
+
+---
+
+## 🚀 Deployment Guide
+
+### **Deploy Backend on Render**
+
+1. Go to **Render** ([https://render.com](https://render.com))
+2. Create a **New Web Service**
+3. Connect your GitHub repository
+4. Set **Build Command**:
    ```bash
-   git checkout -b feature-name
+   pip install -r requirements.txt
    ```
-3. Commit your changes:
+5. Set **Start Command**:
    ```bash
-   git commit -m "Add feature name"
+   gunicorn app:app
    ```
-4. Push the branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request.
+6. Add **Environment Variables** (from `.env` file)
+7. Deploy & get backend URL (e.g., `https://your-app.onrender.com`)
 
 ---
 
-## 📜 **License**
+### **Deploy Frontend on Vercel**
 
-This project is open-source and available under the [MIT License](LICENSE).
+1. Go to **Vercel** ([https://vercel.com](https://vercel.com))
+2. Connect your GitHub repository
+3. Set **Build Command**:
+   ```bash
+   npm install && npm run build
+   ```
+4. Set **Environment Variables**
+5. Deploy & get frontend URL (e.g., `https://your-app.vercel.app`)
 
 ---
+
+## 🛠️ API Endpoints
+
+| Method | Endpoint                              | Description                 |
+| ------ | ------------------------------------- | --------------------------- |
+| GET    | `/api/deployments`                    | Fetch all deployments       |
+| POST   | `/api/deployments/<id>/mark_inactive` | Mark deployment as inactive |
+| DELETE | `/api/deployments/<id>`               | Delete a deployment         |
+
+---
+
+## 📜 License
+
+This project is open-source under the **MIT License**.
+
+---
+
+## 🌟 Contributions
+
+Feel free to fork, submit PRs, or suggest improvements!
