@@ -41,8 +41,6 @@ GitHub Deployment Cleaner is a tool that helps you manage and clean up deploymen
 └── README.md                   # This file
 ```
 
-````
-
 ## Setup Guide (Local Development)
 
 ### Backend CLI Setup
@@ -205,4 +203,3 @@ This command will:
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-````
